@@ -3,10 +3,11 @@ input_dir <- args[1]
 output_dir <- args[2]
 
 source("https://raw.githubusercontent.com/BHKLAB-Pachyderm/ICB_Common/main/code/Get_Response.R")
+source("https://raw.githubusercontent.com/BHKLAB-Pachyderm/ICB_Common/main/code/format_clin_data.R")
 
-clin = read.csv( file.path(input_dir, "CLIN.txt"), stringsAsFactors=FALSE , sep="\t")
-
-clin = cbind( clin[ , c( "X" , "gender..Male.1..Female.0." , "BR" , "PFS.days.","OS","Mstage..IIIC.0..M1a.1..M1b.2..M1c.3.","progressed","dead","Primary_Type","Histology" , "priorCTLA4" ) ] , "PD-1/PD-L1" , NA , NA , NA , NA , NA )
+clin_original = read.csv( file.path(input_dir, "CLIN.txt"), stringsAsFactors=FALSE , sep="\t")
+selected_cols <- c( "X" , "gender..Male.1..Female.0." , "BR" , "PFS.days.","OS","Mstage..IIIC.0..M1a.1..M1b.2..M1c.3.","progressed","dead","Primary_Type","Histology" , "priorCTLA4" )
+clin = cbind( clin_original[ ,  selected_cols] , "PD-1/PD-L1" , NA , NA , NA , NA , NA )
 colnames(clin) = c( "patient" , "sex" , "recist" , "t.pfs"  ,"t.os"  , "stage" , "pfs" , "os", "primary"  , "histo" , "priorCTLA4" , "drug_type" , "age" , "dna" , "rna" , "response.other.info" , "response" )
 
 clin$sex = ifelse(clin$sex %in% 0 , "F" , "M")
@@ -28,6 +29,8 @@ clin$rna[ clin$patient %in% case[ case$expr %in% 1 , ]$patient ] = "fpkm"
 clin$dna[ clin$patient %in% case[ case$cna %in% 1 , ]$patient ] = "wes"
 
 clin = clin[ , c("patient" , "sex" , "age" , "primary" , "histo" , "stage" , "response.other.info" , "recist" , "response" , "drug_type" , "dna" , "rna" , "t.pfs" , "pfs" , "t.os" , "os" ) ]
+
+clin <- format_clin_data(clin_original, 'X', selected_cols, clin)
 
 write.table( clin , file=file.path(output_dir, "CLIN.csv") , quote=FALSE , sep=";" , col.names=TRUE , row.names=FALSE )
 
