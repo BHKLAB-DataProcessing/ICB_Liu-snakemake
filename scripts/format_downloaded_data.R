@@ -1,11 +1,11 @@
 # wget 'https://static-content.springer.com/esm/art%3A10.1038%2Fs41591-019-0654-5/MediaObjects/41591_2019_654_MOESM4_ESM.xlsx' \
-# -O ~/Documents/ICBCuration/data_source/Liu/41591_2019_654_MOESM4_ESM.xlsx
+# -O ~/Code/bhklab/ICBCuration/download/ICB_Liu/41591_2019_654_MOESM4_ESM.xlsx
 # 
 # wget 'https://static-content.springer.com/esm/art%3A10.1038%2Fs41591-019-0654-5/MediaObjects/41591_2019_654_MOESM3_ESM.txt' \
-# -O ~/Documents/ICBCuration/data_source/Liu/41591_2019_654_MOESM3_ESM.txt
+# -O ~/Code/bhklab/ICBCuration/download/ICB_Liu/41591_2019_654_MOESM3_ESM.txt
 # 
 # wget 'https://static-content.springer.com/esm/art%3A10.1038%2Fs41591-019-0654-5/MediaObjects/41591_2019_654_MOESM2_ESM.xlsx' \
-# -O ~/Documents/ICBCuration/data_source/Liu/41591_2019_654_MOESM2_ESM.xlsx
+# -O ~/Code/bhklab/ICBCuration/download/ICB_Liu/41591_2019_654_MOESM2_ESM.xlsx
 
 library(readxl) 
 library(data.table)
